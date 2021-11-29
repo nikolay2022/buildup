@@ -1,11 +1,11 @@
 <idea-plugin>
   <id>nikolay2022.idea.plugin.drumroll</id>
   <name>Build Finish Telegram Notification</name>
-  <version>1.0</version>
+  <version>1.1</version>
   <vendor email="nik.yakushov@gmail.com" url="https://github.com/nikolay2022/myPlugin">Nikolay Yakushov</vendor>
   <description>Receive notifications about the completion of the assembly in telegrams. Bot name @zhmail_assistant_bot
     </description>
-  <idea-version since-build="173"/>
+  <idea-version since-build="193"/>
   <depends>com.intellij.modules.java</depends>
   <depends>com.intellij.modules.lang</depends>
   <depends optional="true" config-file="android_config.xml">org.jetbrains.android</depends>

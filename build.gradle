@@ -4,7 +4,7 @@ plugins {
 }
 
 group 'nikolay2022.android.plugin'
-version '1.0'
+version '1.1'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
@@ -32,7 +32,7 @@ intellij {
 }
 
 patchPluginXml {
-    sinceBuild '173'
+    sinceBuild '193'
     untilBuild null
 }
 
