@@ -11,6 +11,10 @@ import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 
+/**
+ *@author nikolay2022 on 29/11/2021
+ */
+
 class BeforeCompile : CompileTask {
     override fun execute(context: CompileContext): Boolean {
         val httpclient: HttpClient = HttpClients.createDefault()
@@ -18,9 +22,10 @@ class BeforeCompile : CompileTask {
         val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
         params.add(BasicNameValuePair("tgid", id))
         params.add(BasicNameValuePair("type", "message"))
+        params.add(BasicNameValuePair("message", "build execute"))
         httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
         val response: HttpResponse = httpclient.execute(httppost)
-        Messages.showMessageDialog("HUI","PISKA",Messages.getInformationIcon())
+        //Messages.showMessageDialog("HUI","PISKA",Messages.getInformationIcon())
         return true
     }
 }

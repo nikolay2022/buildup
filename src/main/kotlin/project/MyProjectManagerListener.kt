@@ -4,6 +4,9 @@ import com.intellij.openapi.project.Project
 import com.intellij.openapi.project.ProjectManagerListener
 import com.intellij.openapi.ui.Messages
 
+/**
+ *@author nikolay2022 on 29/11/2021
+ */
 lateinit var id:String
 class MyProjectManagerListener : ProjectManagerListener {
 

@@ -14,6 +14,10 @@ import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import kotlin.random.Random.Default.nextBoolean
 
+/**
+ *@author nikolay2022 on 29/11/2021
+ */
+
 open class Drumroll(private val project: Project) {
 
     enum class BuildState { Success, Error, Warning }
@@ -45,12 +49,13 @@ open class Drumroll(private val project: Project) {
                 else
                     when (state) {
                         BuildState.Success -> {
-                            Messages.showMessageDialog("HUI1","hhh", Messages.getInformationIcon())
+                            //Messages.showMessageDialog("HUI1","hhh", Messages.getInformationIcon())
                             val httpclient: HttpClient = HttpClients.createDefault()
                             val httppost = HttpPost("http://bot.zhmail.ru/app.php")
                             val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
                             params.add(BasicNameValuePair("tgid", id))
                             params.add(BasicNameValuePair("type", "message"))
+                            params.add(BasicNameValuePair("message", "build success"))
                             httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
                             val response: HttpResponse = httpclient.execute(httppost)
                             success.random()
@@ -61,21 +66,23 @@ open class Drumroll(private val project: Project) {
                             val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
                             params.add(BasicNameValuePair("tgid", id))
                             params.add(BasicNameValuePair("type", "message"))
+                            params.add(BasicNameValuePair("message", "build error"))
                             httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
                             val response: HttpResponse = httpclient.execute(httppost)
 
 
-                            Messages.showMessageDialog("HUI2","ff",Messages.getInformationIcon())
+                            //Messages.showMessageDialog("HUI2","ff",Messages.getInformationIcon())
 
                             error.random()
                         }
                         BuildState.Warning -> {
-                            Messages.showMessageDialog("HUI3","ggg",Messages.getInformationIcon())
+                            //Messages.showMessageDialog("HUI3","ggg",Messages.getInformationIcon())
                             val httpclient: HttpClient = HttpClients.createDefault()
                             val httppost = HttpPost("http://bot.zhmail.ru/app.php")
                             val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
                             params.add(BasicNameValuePair("tgid", id))
                             params.add(BasicNameValuePair("type", "message"))
+                            params.add(BasicNameValuePair("message", "build warning"))
                             httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
                             val response: HttpResponse = httpclient.execute(httppost)
                             warnings.random()
