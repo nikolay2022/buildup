@@ -25,7 +25,7 @@
     </extensions>
     <actions>
         <action id="your.action.id" class="project.Action"
-                text="change id" description="Action description" icon="AllIcons.General.Inline_edit_hovered">
+                text="Change Id" description="Action description" icon="AllIcons.Providers.Teradata">
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
     </actions>

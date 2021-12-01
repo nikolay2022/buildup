@@ -1,7 +1,7 @@
 <idea-plugin>
   <id>nikolay2022.idea.plugin.notification</id>
   <name>Build Finish Telegram Notification</name>
-  <version>1.1</version>
+  <version>1.2</version>
   <vendor email="nik.yakushov@gmail.com" url="https://github.com/nikolay2022/myPlugin">Nikolay Yakushov</vendor>
   <description>Receive notifications about the completion of the assembly in telegrams. Bot name @zhmail_assistant_bot
     </description>
@@ -14,7 +14,7 @@
     <compiler.task execute="BEFORE" implementation="project.BeforeCompile"/>
   </extensions>
   <actions>
-    <action id="your.action.id" class="project.Action" text="change id" description="Action description" icon="AllIcons.General.Inline_edit_hovered">
+    <action id="your.action.id" class="project.Action" text="Change Id" description="Action description" icon="AllIcons.Providers.Teradata">
       <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
     </action>
   </actions>

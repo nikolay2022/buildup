@@ -1,6 +1,5 @@
 package project
 
-import com.android.tools.lint.detector.api.Project
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.actionSystem.AnAction
 import com.intellij.openapi.actionSystem.AnActionEvent
@@ -26,18 +25,20 @@ class Action: AnAction() {
             Messages.getQuestionIcon()
         ).also {
             val httpclient: HttpClient = HttpClients.createDefault()
-            val httppost = HttpPost("http://bot.zhmail.ru/app.php")
+            val httppost = HttpPost("https://bot.zhmail.ru/app.php")
             val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
-            params.add(BasicNameValuePair("tgid", it.toString()))
+            params.add(BasicNameValuePair("sid", it.toString()))
             params.add(BasicNameValuePair("type", "check"))
             httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
             val response: HttpResponse = httpclient.execute(httppost)
-            if(EntityUtils.toString(response.entity) == "1") {
-                PropertiesComponent.getInstance().setValue(KEY_TGID, it.toString())
-                id = it.toString()
+            val resp:String = EntityUtils.toString(response.entity)
+            if(resp == "Error") {
+                Messages.showErrorDialog("incorrect","ERROR")
+
             }
             else{
-                Messages.showErrorDialog("the id you entered is incorrect","ERROR")
+                token = resp
+                PropertiesComponent.getInstance().setValue(KEY_TGID, token)
             }
         }
 
