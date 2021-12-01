@@ -1,5 +1,5 @@
 <idea-plugin>
-  <id>nikolay2022.idea.plugin.drumroll</id>
+  <id>nikolay2022.idea.plugin.notification</id>
   <name>Build Finish Telegram Notification</name>
   <version>1.1</version>
   <vendor email="nik.yakushov@gmail.com" url="https://github.com/nikolay2022/myPlugin">Nikolay Yakushov</vendor>
@@ -13,6 +13,11 @@
   <extensions defaultExtensionNs="com.intellij">
     <compiler.task execute="BEFORE" implementation="project.BeforeCompile"/>
   </extensions>
+  <actions>
+    <action id="your.action.id" class="project.Action" text="change id" description="Action description" icon="AllIcons.General.Inline_edit_hovered">
+      <add-to-group group-id="ToolbarRunGroup" anchor="first"/>
+    </action>
+  </actions>
   <applicationListeners>
     <listener class="project.MyProjectManagerListener" topic="com.intellij.openapi.project.ProjectManagerListener"/>
   </applicationListeners>
