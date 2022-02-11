@@ -1,10 +1,12 @@
 <idea-plugin>
     <id>nikolay2022.idea.plugin.notification</id>
-    <name>Build Finish Telegram Notification</name>
+    <name>BuildUp</name>
     <version>1.0</version>
     <vendor email="nik.yakushov@gmail.com" url="https://github.com/nikolay2022/myPlugin">Nikolay Yakushov</vendor>
 
-    <description>Receive notifications about the completion of the assembly in telegrams. Bot name @zhmail_assistant_bot
+    <description>Receive notifications about the completion of the assembly in telegrams. Build finish telegram notification
+        Bot name @irlix_buildUp_bot.
+        Link bot: https://t.me/irlix_buildUp_bot
     </description>
 
 
