@@ -1,10 +1,10 @@
 plugins {
-    id 'org.jetbrains.kotlin.jvm' version '1.4.20'
+    id 'org.jetbrains.kotlin.jvm' version '1.6.0'
     id 'org.jetbrains.intellij' version '0.6.5'
 }
 
 group 'nikolay2022.android.plugin'
-version '1.2'
+version '1.2.4'
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
 intellij {
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
+    implementation 'org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.0'
 }
 
 compileKotlin {
@@ -27,7 +27,7 @@ compileTestKotlin {
 
 intellij {
     plugins = ['java', 'android']
-    version '2020.1'
+    version '2021.3.2'
     pluginName 'Build Finish Telegram Notification'
 }
 

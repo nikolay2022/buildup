@@ -26,7 +26,7 @@ class MyProjectManagerListener : ProjectManagerListener {
             Messages.showInputDialog(
                 project,
                 "enter your id",
-                "enter the id you received from the telegram bot @zhmail_assistant_bot",
+                "enter the id you received from the telegram bot @irlix_buildUp_bot",
                 Messages.getQuestionIcon()
             ).also {
                 val httpclient: HttpClient = HttpClients.createDefault()
