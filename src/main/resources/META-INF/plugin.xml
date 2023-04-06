@@ -11,7 +11,7 @@
 
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-    <idea-version since-build="193.0"/>
+
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
          on how to target different products -->
@@ -21,10 +21,7 @@
     <depends>com.intellij.modules.platform</depends>
     <!--    <depends>com.intellij.modules.python</depends>-->
 
-    <extensions defaultExtensionNs="com.intellij">
-        <compiler.task execute="BEFORE" implementation="project.BeforeCompile"/>
 
-    </extensions>
     <actions>
         <action id="your.action.id" class="project.Action"
                 text="Change Id" description="Action description" icon="AllIcons.Providers.Teradata">
@@ -35,9 +32,11 @@
         <listener class="project.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
-    <project-components>
-        <component>
-            <implementation-class>project.Drumroll</implementation-class>
-        </component>
-    </project-components>
+
+    <projectListeners>
+        <listener
+                class = "project.Drumroll"
+                topic="com.intellij.task.ProjectTaskListener"/>
+    </projectListeners>
+
 </idea-plugin>

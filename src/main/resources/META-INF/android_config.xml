@@ -1,7 +1,7 @@
 <idea-plugin>
-    <project-components>
-        <component>
-            <implementation-class>project.AndroidDrumroll</implementation-class>
-        </component>
-    </project-components>
+    <projectListeners>
+        <listener
+            class = "project.AndroidDrumroll"
+            topic = "com.android.tools.idea.gradle.project.build.GradleBuildListener"/>
+    </projectListeners>
 </idea-plugin>

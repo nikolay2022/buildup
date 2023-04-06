@@ -1,10 +1,9 @@
 package project
 
-import com.intellij.openapi.compiler.CompilationStatusListener
-import com.intellij.openapi.compiler.CompileContext
-import com.intellij.openapi.compiler.CompilerTopics
 import com.intellij.openapi.project.Project
-import com.intellij.openapi.ui.Messages
+import com.intellij.task.ProjectTaskContext
+import com.intellij.task.ProjectTaskListener
+import com.intellij.task.ProjectTaskManager
 import org.apache.http.HttpResponse
 import org.apache.http.NameValuePair
 import org.apache.http.client.HttpClient
@@ -12,76 +11,53 @@ import org.apache.http.client.entity.UrlEncodedFormEntity
 import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
-import kotlin.random.Random.Default.nextBoolean
 
 /**
  *@author nikolay2022 on 29/11/2021
  */
 
-open class Drumroll(private val project: Project) {
+open class Drumroll(private val project: Project) : ProjectTaskListener {
+    override fun finished(result: ProjectTaskManager.Result) {
+        when {
+            result.hasErrors() -> {
+                val httpclient: HttpClient = HttpClients.createDefault()
+                val httppost = HttpPost("https://bot.zhmail.ru/app.php")
+                val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
+                params.add(BasicNameValuePair("token", token))
+                params.add(BasicNameValuePair("type", "message"))
+                params.add(BasicNameValuePair("message", "build error"))
+                httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
+                val response: HttpResponse = httpclient.execute(httppost)
 
-    enum class BuildState { Success, Error, Warning }
-
-    private val messages by lazy { project.messageBus.connect() }
-    private val success = arrayOf("Ba-Dum-Tss!", "wow", "boring")
-    private val error = arrayOf("failure", "doh", "oh_geez", "better_call_saul")
-    private val warnings = arrayOf("metal_gear")
-    private val timeCards = arrayOf("eternity_later", "moments_later", "pair_of_pants_later", "inches_later")
-
-    init {
-        messages.subscribe(CompilerTopics.COMPILATION_STATUS, object : CompilationStatusListener {
-            override fun compilationFinished(aborted: Boolean, errors: Int, warnings: Int, compileContext: CompileContext) {
-                notifyState(
-                        when {
-                            errors > 0 -> BuildState.Error
-                            warnings > 0 -> BuildState.Warning
-                            else -> BuildState.Success
-                        }
-                )
             }
-        })
+
+            result.isAborted -> {
+                val httpclient: HttpClient = HttpClients.createDefault()
+                val httppost = HttpPost("https://bot.zhmail.ru/app.php")
+                val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
+                params.add(BasicNameValuePair("token", token))
+                params.add(BasicNameValuePair("type", "message"))
+                params.add(BasicNameValuePair("message", "build canceled"))
+                httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
+                val response: HttpResponse = httpclient.execute(httppost)
+            }
+
+            else -> {
+                val httpclient: HttpClient = HttpClients.createDefault()
+                val httppost = HttpPost("https://bot.zhmail.ru/app.php")
+                val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
+                params.add(BasicNameValuePair("token", token))
+                params.add(BasicNameValuePair("type", "message"))
+                params.add(BasicNameValuePair("message", "build success"))
+                httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
+                val response: HttpResponse = httpclient.execute(httppost)
+            }
+        }
     }
 
-
-    fun notifyState(state: BuildState) {
-                if (nextBoolean() && nextBoolean())
-                    timeCards.random()
-                else
-                    when (state) {
-                        BuildState.Success -> {
-                            val httpclient: HttpClient = HttpClients.createDefault()
-                            val httppost = HttpPost("https://bot.zhmail.ru/app.php")
-                            val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
-                            params.add(BasicNameValuePair("token", token))
-                            params.add(BasicNameValuePair("type", "message"))
-                            params.add(BasicNameValuePair("message", "build success"))
-                            httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
-                            val response: HttpResponse = httpclient.execute(httppost)
-                            success.random()
-                        }
-                        BuildState.Error ->{
-                            val httpclient: HttpClient = HttpClients.createDefault()
-                            val httppost = HttpPost("https://bot.zhmail.ru/app.php")
-                            val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
-                            params.add(BasicNameValuePair("token", token))
-                            params.add(BasicNameValuePair("type", "message"))
-                            params.add(BasicNameValuePair("message", "build error"))
-                            httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
-                            val response: HttpResponse = httpclient.execute(httppost)
-                            error.random()
-                        }
-                        BuildState.Warning -> {
-                            val httpclient: HttpClient = HttpClients.createDefault()
-                            val httppost = HttpPost("https://bot.zhmail.ru/app.php")
-                            val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
-                            params.add(BasicNameValuePair("token", token))
-                            params.add(BasicNameValuePair("type", "message"))
-                            params.add(BasicNameValuePair("message", "build warning"))
-                            httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
-                            val response: HttpResponse = httpclient.execute(httppost)
-                            warnings.random()
-                        }
-                    }
+    override fun started(context: ProjectTaskContext) {
+        super.started(context)
     }
+
 }
 
