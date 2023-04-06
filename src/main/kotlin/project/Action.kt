@@ -13,9 +13,10 @@ import org.apache.http.client.methods.HttpPost
 import org.apache.http.impl.client.HttpClients
 import org.apache.http.message.BasicNameValuePair
 import org.apache.http.util.EntityUtils
+import project.listeners.token
 
+class Action : AnAction() {
 
-class Action: AnAction() {
     override fun actionPerformed(e: AnActionEvent) {
         val project: com.intellij.openapi.project.Project? = e.getData(PlatformDataKeys.PROJECT)
         Messages.showInputDialog(
@@ -25,24 +26,22 @@ class Action: AnAction() {
             Messages.getQuestionIcon()
         ).also {
             val httpclient: HttpClient = HttpClients.createDefault()
-            val httppost = HttpPost("https://bot.zhmail.ru/app.php")
+            val httppost = HttpPost("https://api.zhmail.ru/bots/buildup/app")
             val params: MutableList<NameValuePair> = ArrayList<NameValuePair>(2)
             params.add(BasicNameValuePair("sid", it.toString()))
             params.add(BasicNameValuePair("type", "check"))
             httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
             val response: HttpResponse = httpclient.execute(httppost)
-            val resp:String = EntityUtils.toString(response.entity)
-            if(resp == "Error") {
-                Messages.showErrorDialog("incorrect","ERROR")
-
-            }
-            else{
+            val resp: String = EntityUtils.toString(response.entity)
+            if (resp == "Error") {
+                Messages.showErrorDialog("incorrect", "ERROR")
+            } else {
                 token = resp
                 PropertiesComponent.getInstance().setValue(KEY_TGID, token)
             }
         }
-
     }
+
     private companion object {
         const val KEY_TGID = "tgid"
     }

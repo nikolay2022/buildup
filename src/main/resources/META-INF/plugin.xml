@@ -4,23 +4,16 @@
     <version>1.0</version>
     <vendor email="nik.yakushov@gmail.com" url="https://github.com/nikolay2022/myPlugin">Nikolay Yakushov</vendor>
 
-    <description>Receive notifications about the completion of the assembly in telegrams. Build finish telegram notification
+    <description>
+        Receive notifications about the completion of the assembly in telegrams. Build finish telegram notification
         Bot name @irlix_buildUp_bot.
         Link bot: https://t.me/irlix_buildUp_bot
     </description>
 
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
-
-
-    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
-         on how to target different products -->
     <depends>com.intellij.modules.java</depends>
     <depends>com.intellij.modules.lang</depends>
     <depends optional="true" config-file="android_config.xml">org.jetbrains.android</depends>
     <depends>com.intellij.modules.platform</depends>
-    <!--    <depends>com.intellij.modules.python</depends>-->
-
 
     <actions>
         <action id="your.action.id" class="project.Action"
@@ -28,14 +21,15 @@
             <add-to-group group-id="ToolbarRunGroup" anchor="first" />
         </action>
     </actions>
+
     <applicationListeners>
-        <listener class="project.MyProjectManagerListener"
+        <listener class="project.listeners.MyProjectManagerListener"
                   topic="com.intellij.openapi.project.ProjectManagerListener"/>
     </applicationListeners>
 
     <projectListeners>
         <listener
-                class = "project.Drumroll"
+                class = "project.listeners.BuildUp"
                 topic="com.intellij.task.ProjectTaskListener"/>
     </projectListeners>
 

@@ -1,4 +1,4 @@
-package project
+package project.listeners
 
 import com.intellij.ide.util.PropertiesComponent
 import com.intellij.openapi.project.Project
