@@ -16,7 +16,7 @@ import org.apache.http.message.BasicNameValuePair
 /**
  *@author nikolay2022 on 29/11/2021
  */
-class AndroidDrumroll(private val project: Project) : GradleBuildListener {
+class AndroidBuildUp(private val project: Project) : GradleBuildListener {
 
     override fun buildExecutorCreated(request: GradleBuildInvoker.Request) {
 //        val httpclient: HttpClient = HttpClients.createDefault()

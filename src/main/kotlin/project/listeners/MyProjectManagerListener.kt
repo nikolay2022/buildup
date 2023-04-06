@@ -22,7 +22,7 @@ class MyProjectManagerListener : ProjectManagerListener {
 
     override fun projectOpened(project: Project) {
         val tgid = PropertiesComponent.getInstance().getValue(KEY_TGID)
-        if (tgid == null || tgid.isEmpty()) {
+        if (tgid.isNullOrEmpty()) {
             Messages.showInputDialog(
                 project,
                 "enter your id",
@@ -36,17 +36,18 @@ class MyProjectManagerListener : ProjectManagerListener {
                 params.add(BasicNameValuePair("type", "check"))
                 httppost.setEntity(UrlEncodedFormEntity(params, "UTF-8"))
                 val response: HttpResponse = httpclient.execute(httppost)
-                val resp:String = EntityUtils.toString(response.entity)
-                if(resp == "Error") {
-                    Messages.showErrorDialog(httpclient.execute(httppost).toString(),"the ID entered is incorrect. messages will not come. you can enter id if you click on the button in the action bar (next to the \"build project\" button).")
-                }
-                else{
+                val resp: String = EntityUtils.toString(response.entity)
+                if (resp == "Error") {
+                    Messages.showErrorDialog(
+                        httpclient.execute(httppost).toString(),
+                        "the ID entered is incorrect. messages will not come. you can enter id if you click on the button in the action bar (next to the \"build project\" button)."
+                    )
+                } else {
                     token = resp
                     PropertiesComponent.getInstance().setValue(KEY_TGID, token)
                 }
-
             }
-        } else{
+        } else {
             token = tgid
         }
     }

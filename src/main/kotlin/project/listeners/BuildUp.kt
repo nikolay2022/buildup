@@ -16,7 +16,7 @@ import org.apache.http.message.BasicNameValuePair
  *@author nikolay2022 on 29/11/2021
  */
 
-open class Drumroll(private val project: Project) : ProjectTaskListener {
+open class BuildUp(private val project: Project) : ProjectTaskListener {
     override fun finished(result: ProjectTaskManager.Result) {
         when {
             result.hasErrors() -> {
