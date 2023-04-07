@@ -13,16 +13,20 @@ import project.network.BuildNotifierImpl
 
 open class BuildUp(private val project: Project) : ProjectTaskListener {
     private val buildNotifier = BuildNotifierImpl()
+    private var timeStartBuild = 0L
 
     override fun finished(result: ProjectTaskManager.Result) {
+        val timeEndBuild = System.currentTimeMillis()
+        val timeBuild = (timeEndBuild - timeStartBuild) / 1000L
         when {
-            result.hasErrors() -> buildNotifier(BuildStatusModel.ERROR, project.name)
-            result.isAborted -> buildNotifier(BuildStatusModel.CANCELLED, project.name)
-            else -> buildNotifier(BuildStatusModel.SUCCESS, project.name)
+            result.hasErrors() -> buildNotifier(BuildStatusModel.ERROR, project.name, timeBuild.toString())
+            result.isAborted -> buildNotifier(BuildStatusModel.CANCELLED, project.name, timeBuild.toString())
+            else -> buildNotifier(BuildStatusModel.SUCCESS, project.name, timeBuild.toString())
         }
     }
 
     override fun started(context: ProjectTaskContext) {
+        timeStartBuild = System.currentTimeMillis()
         buildNotifier(BuildStatusModel.STARTED, project.name)
     }
 }

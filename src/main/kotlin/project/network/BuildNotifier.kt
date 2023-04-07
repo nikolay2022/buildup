@@ -7,5 +7,5 @@ import project.model.BuildStatusModel
  */
 
 interface BuildNotifier {
-    fun invoke(buildStatusModel: BuildStatusModel, projectName: String)
+    fun invoke(buildStatusModel: BuildStatusModel, projectName: String, buildTime: String = "0")
 }
